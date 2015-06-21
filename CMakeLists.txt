@@ -5,14 +5,20 @@ include(CheckCXXCompilerFlag)
 
 project(nx)
 
+option(DEBUG "build application with debug traces" OFF) # OFF is the default
+option(MUTABLE_SCALE "build application with changable scale" ON) # OFF is the default
+option(USE_TTF "build application with ttf font support" ON) # OFF is the default
+
 set (nx_VERSION_MAJOR 2)
 set (nx_VERSION_MINOR 1)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 find_package(SDL2)
-find_package(SDL2_ttf)
 find_package(PNG)
+if(USE_TTF)
+    find_package(SDL2_ttf)
+endif(USE_TTF)
 
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2TTF_INCLUDE_DIR})
@@ -52,10 +58,6 @@ set(SOURCES
     ${SN_SOURCES}
 )
 
-option(DEBUG "build application with debug traces" OFF) # OFF is the default
-option(MUTABLE_SCALE "build application with changable scale" ON) # OFF is the default
-option(USE_TTF "build application with ttf font support" ON) # OFF is the default
-
 if(DEBUG)
   add_definitions(-DTRACE_SCRIPT)
 endif(DEBUG)
@@ -73,7 +75,10 @@ target_link_libraries(nx ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${PNG_LIBRARY})
 
 add_executable(extract ${EXTR_SOURCES})
 
-configure_file(font.ttf ${CMAKE_CURRENT_BINARY_DIR}/font.ttf COPYONLY)
-configure_file(smallfont.bmp ${CMAKE_CURRENT_BINARY_DIR}/smallfont.bmp COPYONLY)
+if(USE_TTF)
+    configure_file(font.ttf ${CMAKE_CURRENT_BINARY_DIR}/font.ttf COPYONLY)
+else()
+    configure_file(smallfont.bmp ${CMAKE_CURRENT_BINARY_DIR}/smallfont.bmp COPYONLY)
+endif(USE_TTF)
 configure_file(sprites.sif ${CMAKE_CURRENT_BINARY_DIR}/sprites.sif COPYONLY)
 configure_file(tilekey.dat ${CMAKE_CURRENT_BINARY_DIR}/tilekey.dat COPYONLY)

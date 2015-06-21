@@ -20,3 +20,33 @@ What done:
 Look in TODO for upcoming features
 
 May (and most definitely) contain bugs.
+
+Building
+--------
+
+**Requirements**
+- [SDL2](https://libsdl.org/download-2.0.php)
+- [libpng](http://www.libpng.org/pub/png/libpng.html)
+- Optional, if you want TTF font support:
+  - [SDL2_ttf](https://www.libsdl.org/projects/SDL_ttf)
+  - [FreeType](http://www.freetype.org/)
+  - [zlib](http://www.zlib.net)
+
+```sh
+cd build
+cmake -G"Your Generator" ..
+make
+```
+
+`Your Generator` will be `Unix Makefiles` for GCC, `MinGW Makefiles` for MinGW
+and `NMake Makefiles` for VS/NMake.  
+If you want to build without TTF font support, pass `-DUSE_TTF=OFF` to cmake
+(before the `..`).
+
+After the build has finished, copy `data/` and `Doukutsu.exe` from the original
+Cave Story to `build/` and run `extract` to generate the nescessary game files.
+
+If you're on Windows, copy `SDL2.dll`, `libpng3.dll` and, if built with TTF font
+support, `SDL2_ttf.dll`, `libfreetype-6.dll` and `zlib1.dll` to `build/`.
+
+Now you should be all set to run `nx`.
