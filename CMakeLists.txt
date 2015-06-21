@@ -73,4 +73,7 @@ target_link_libraries(nx ${SDL2_LIBRARY} ${SDL2TTF_LIBRARY} ${PNG_LIBRARY})
 
 add_executable(extract ${EXTR_SOURCES})
 
-
+configure_file(font.ttf ${CMAKE_CURRENT_BINARY_DIR}/font.ttf COPYONLY)
+configure_file(smallfont.bmp ${CMAKE_CURRENT_BINARY_DIR}/smallfont.bmp COPYONLY)
+configure_file(sprites.sif ${CMAKE_CURRENT_BINARY_DIR}/sprites.sif COPYONLY)
+configure_file(tilekey.dat ${CMAKE_CURRENT_BINARY_DIR}/tilekey.dat COPYONLY)
