@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "pngfuncs.h"
 #include "graphics.h"
 #include "../common/stat.h"

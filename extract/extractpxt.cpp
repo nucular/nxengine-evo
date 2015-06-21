@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <direct.h>
 #include <string.h>
 #include <sys/stat.h>
 #include "extractpxt.h"
@@ -156,7 +157,11 @@ int s, c, i;
 		sprintf(outfilename, "pxt/fx%02x.pxt", snd[s].id);
 		printf("[ %s ]\n", outfilename);
 		
+#ifdef __LINUX__
 		mkdir("pxt", 0755);
+#else
+    _mkdir("pxt");
+#endif
 		FILE *fpo = fopen(outfilename, "wb");
 		if (!fpo)
 		{
